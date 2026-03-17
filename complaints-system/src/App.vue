@@ -45,22 +45,24 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+// شحن مكتبة Tailwind برمجياً عشان تضمن إن التصميم يظبط فوراً
+const script = document.createElement('script');
+script.src = "https://cdn.tailwindcss.com";
+document.head.appendChild(script);
+
 const userRole = ref(null) 
 const router = useRouter()
 
-// وظيفة دخول المستخدم: تغير الرتبة وتنقلك لصفحة الإضافة
 const loginAsUser = () => {
   userRole.value = 'user'
   router.push('/add-complaint')
 }
 
-// وظيفة دخول الأدمن: تغير الرتبة وتنقلك للوحة التحكم
 const loginAsAdmin = () => {
   userRole.value = 'admin'
   router.push('/dashboard')
 }
 
-// وظيفة الخروج: ترجع الحالة لـ null وترجعك للرئيسية
 const logout = () => {
   userRole.value = null
   router.push('/')
@@ -68,23 +70,96 @@ const logout = () => {
 </script>
 
 <style>
+/* استيراد الخط */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif !important; }
-body { direction: rtl; background-color: #f5f5f5; }
+/* تنسيقات عامة */
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: 'Cairo', sans-serif !important; 
+}
 
-.navbar { background-color: white; height: 80px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-.container { width: 90%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-.logo-text h1 { font-size: 1.2rem; color: #b30000; font-weight: 700; }
+/* تفعيل السكرول في الـ body */
+html, body { 
+  direction: rtl; 
+  background-color: #f5f5f5; 
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important; 
+  overflow-x: hidden;
+}
+
+.navbar { 
+  background-color: white; 
+  height: 80px; 
+  display: flex; 
+  align-items: center; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+  position: sticky; 
+  top: 0; 
+  z-index: 1000; 
+}
+
+.container { 
+  width: 90%; 
+  margin: 0 auto; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.logo-text h1 { 
+  font-size: 1.2rem; 
+  color: #b30000; 
+  font-weight: 700; 
+}
 
 .nav-links { display: flex; gap: 10px; }
-.nav-item { text-decoration: none; color: #555; padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
-.nav-item:hover, .router-link-active { background-color: #b30000; color: white; }
+.nav-item { 
+  text-decoration: none; 
+  color: #555; 
+  padding: 8px 12px; 
+  border-radius: 8px; 
+  font-weight: 600; 
+  font-size: 0.95rem; 
+  transition: 0.3s; 
+}
+
+.nav-item:hover, .router-link-active { 
+  background-color: #b30000; 
+  color: white; 
+}
 
 .auth-buttons { display: flex; gap: 10px; }
-.login-btn { background: none; border: 1px solid #ddd; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-.register-btn { background-color: #b30000; color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.login-btn { 
+  background: none; 
+  border: 1px solid #ddd; 
+  padding: 8px 18px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  font-weight: 600; 
+}
+
+.register-btn { 
+  background-color: #b30000; 
+  color: white; 
+  border: none; 
+  padding: 8px 18px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  font-weight: 600; 
+}
+
 .logout-style { color: #b30000; border-color: #b30000; }
 .user-label { align-self: center; margin-left: 10px; font-weight: bold; font-size: 0.9rem; color: #666; }
-.page-content { min-height: calc(100vh - 80px); }
+
+
+.page-content { 
+  min-height: calc(100vh - 80px); 
+  display: block;
+  position: relative;
+  width: 100%;
+}
 </style>
