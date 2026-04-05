@@ -2,8 +2,9 @@
   <div class="main-layout">
     <header class="navbar">
       <div class="container">
-        <div class="logo-section">
-          <div class="logo-text"><h1>نظام إدارة الشكاوى</h1></div>
+        <div class="logo-section" style="display: flex; align-items: center; gap: 15px;">
+          <img src="@/assets/logo.jpg" alt="Logo" class="main-logo" />
+          <div class="logo-text"><h1>  </h1></div>
         </div>
 
         <nav class="nav-links">
@@ -15,11 +16,14 @@
             <router-link to="/users" class="nav-item">إدارة المستخدمين</router-link>
           </template>
 
+ 
           <template v-else-if="userRole === 'user'">
             <router-link to="/list" class="nav-item">الشكاوى</router-link>
             <router-link to="/add-complaint" class="nav-item">إضافة شكوى</router-link>
+            <router-link to="/add-suggestion" class="nav-item">تقديم مقترح</router-link>
           </template>
         </nav>
+         
 
         <div class="auth-buttons">
           <template v-if="!userRole">
@@ -38,14 +42,18 @@
     <main class="page-content">
       <router-view />
     </main>
+
+    <ChatBotButton />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import ChatBotButton from './components/ChatBotButton.vue' 
 
-// شحن مكتبة Tailwind برمجياً عشان تضمن إن التصميم يظبط فوراً
+// ✅ تم حذف سطر الـ img من هنا لأنه مكانه غلط وسط السكريبت
+
 const script = document.createElement('script');
 script.src = "https://cdn.tailwindcss.com";
 document.head.appendChild(script);
@@ -73,6 +81,14 @@ const logout = () => {
 /* استيراد الخط */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
 
+/*  إضافة تنسيق للوجو     */
+.main-logo {
+  height: 180px; /*  في الطول من هنا */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
 /* تنسيقات عامة */
 * { 
   box-sizing: border-box; 
@@ -80,8 +96,24 @@ const logout = () => {
   padding: 0; 
   font-family: 'Cairo', sans-serif !important; 
 }
+.logo-section:hover .main-logo {
+  transform: scale(1.05);
+}
+.system-title {
+  font-size: 1.5rem;   /* حجم خط متناسق مع اللوجو */
+  color: #b30000; 
+  font-weight: 700;
+  margin: 0;          
+  white-space: nowrap; 
+}
+.logo-section {
+  display: flex;
+  align-items: center; 
+  gap: 5px;
+      cursor: pointer;       /* مسافة مناسبة بين اللوجو والكلمة */
+}
 
-/* تفعيل السكرول في الـ body */
+/*باقي التنسيقات    ... */
 html, body { 
   direction: rtl; 
   background-color: #f5f5f5; 
@@ -113,7 +145,7 @@ html, body {
 .logo-text h1 { 
   font-size: 1.2rem; 
   color: #b30000; 
-  font-weight: 700; 
+  font-weight: 340; 
 }
 
 .nav-links { display: flex; gap: 10px; }
@@ -154,7 +186,6 @@ html, body {
 
 .logout-style { color: #b30000; border-color: #b30000; }
 .user-label { align-self: center; margin-left: 10px; font-weight: bold; font-size: 0.9rem; color: #666; }
-
 
 .page-content { 
   min-height: calc(100vh - 80px); 
